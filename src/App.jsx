@@ -1,40 +1,66 @@
 import React, { useState } from 'react';
 
 export default function App() {
-  const [form, setForm] = useState({
+  const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     summary: '',
-    experience: ''
+    experience: '',
+    education: ''
   });
 
-  function handleChange(e) {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
-  }
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
   return (
-    <div style={{ display: 'flex', gap: '2rem', padding: '2rem', fontFamily: 'Arial, sans-serif' }}>
-      <form style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        <h2>Resume Input</h2>
-        <input name="name" placeholder="Full Name" value={form.name} onChange={handleChange} />
-        <input name="email" placeholder="Email" value={form.email} onChange={handleChange} />
-        <input name="phone" placeholder="Phone" value={form.phone} onChange={handleChange} />
-        <textarea name="summary" placeholder="Professional Summary" value={form.summary} onChange={handleChange} rows={4} />
-        <textarea name="experience" placeholder="Work Experience" value={form.experience} onChange={handleChange} rows={6} />
+    <div style={{ display: 'flex', padding: 20, fontFamily: 'Arial, sans-serif' }}>
+      <form style={{ flex: 1, marginRight: 20 }}>
+        <h2>Resume Details</h2>
+        <label>
+          Name:<br />
+          <input type="text" name="name" value={formData.name} onChange={handleChange} />
+        </label><br /><br />
+        <label>
+          Email:<br />
+          <input type="email" name="email" value={formData.email} onChange={handleChange} />
+        </label><br /><br />
+        <label>
+          Phone:<br />
+          <input type="tel" name="phone" value={formData.phone} onChange={handleChange} />
+        </label><br /><br />
+        <label>
+          Summary:<br />
+          <textarea name="summary" value={formData.summary} onChange={handleChange} rows={3} />
+        </label><br /><br />
+        <label>
+          Experience:<br />
+          <textarea name="experience" value={formData.experience} onChange={handleChange} rows={5} />
+        </label><br /><br />
+        <label>
+          Education:<br />
+          <textarea name="education" value={formData.education} onChange={handleChange} rows={4} />
+        </label>
       </form>
 
-      <section style={{ flex: 1, border: '1px solid #ccc', padding: '1rem', borderRadius: '4px' }}>
-        <h2>Resume Preview</h2>
-        <h1>{form.name || 'Your Name'}</h1>
-        <p><strong>Email:</strong> {form.email || 'your.email@example.com'}</p>
-        <p><strong>Phone:</strong> {form.phone || '(123) 456-7890'}</p>
-        <h3>Professional Summary</h3>
-        <p>{form.summary || 'Brief summary about your professional background.'}</p>
-        <h3>Work Experience</h3>
-        <p style={{ whiteSpace: 'pre-wrap' }}>{form.experience || 'Describe your work experience here.'}</p>
-      </section>
+      <div style={{ flex: 1, border: '1px solid #ccc', padding: 20, borderRadius: 4, backgroundColor: '#f9f9f9' }}>
+        <h2>{formData.name || 'Your Name'}</h2>
+        <p>{formData.email} | {formData.phone}</p>
+        <section>
+          <h3>Summary</h3>
+          <p>{formData.summary || 'Brief summary about yourself.'}</p>
+        </section>
+        <section>
+          <h3>Experience</h3>
+          <p style={{ whiteSpace: 'pre-wrap' }}>{formData.experience || 'Your work experience details.'}</p>
+        </section>
+        <section>
+          <h3>Education</h3>
+          <p style={{ whiteSpace: 'pre-wrap' }}>{formData.education || 'Your education details.'}</p>
+        </section>
+      </div>
     </div>
   );
 }
